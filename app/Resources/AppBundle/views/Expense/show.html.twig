@@ -1,0 +1,69 @@
+{% extends 'TritonCrudBundle::base.html.twig' %}
+
+{% block title %}
+{{ parent() }} - expense
+{% endblock %}
+
+{% block body %}
+
+<header class="panel-heading">
+    <h2> Expense</h2>
+</header>
+<div class="panel-body">
+
+    <form class="form form-vertical">
+        <fieldset>            <div class="control-group">
+                <label class="col-sm-2 control-label">Id</label>
+                <div class="col-sm-10">
+                    <span class="input-xlarge uneditable-input">{{ expense.id }}</span>
+                </div>
+            </div>            <div class="control-group">
+                <label class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-10">
+                    <span class="input-xlarge uneditable-input">{{ expense.title }}</span>
+                </div>
+            </div>            <div class="control-group">
+                <label class="col-sm-2 control-label">Price</label>
+                <div class="col-sm-10">
+                    <span class="input-xlarge uneditable-input">{{ expense.price }}</span>
+                </div>
+            </div>            <div class="control-group">
+                <label class="col-sm-2 control-label">Createdat</label>
+                <div class="col-sm-10">
+                    <span class="input-xlarge uneditable-input">{% if expense.createdAt %}{{ expense.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span>
+                </div>
+            </div>            <div class="control-group">
+                <label class="col-sm-2 control-label">Updatedat</label>
+                <div class="col-sm-10">
+                    <span class="input-xlarge uneditable-input">{% if expense.updatedAt %}{{ expense.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span>
+                </div>
+            </div>        </fieldset>
+    </form>
+        <hr>
+        <div class="form-group">
+    <a class="btn btn-default" href="{{ path('expense') }}">
+        <i class="fa fa-list" aria-hidden="true"></i>
+        Back to list
+    </a>
+            <a class="btn btn-success" href="{{ path('expense_edit', { 'id':  expense.id }) }}">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Edit
+        </a>
+                <a class="btn btn-primary" href="{{ path('expense_new') }}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            New
+        </a>
+                <form action="{{ path('expense_delete', { 'id': expense.id }) }}" method="post" style="display: inline-block">
+            <input type="hidden" name="_method" value="DELETE" />
+            {{ form_widget(delete_form) }}
+            <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure');">
+                <i class="fa fa-trash-o"></i> 
+                Delete</button>
+        </form>
+    </div>
+
+</div>
+<hr>
+
+{% endblock %}
+
